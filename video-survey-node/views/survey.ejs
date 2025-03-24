@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>음식 만족도 설문조사</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>음식 만족도 설문조사</h1>
+        <form id="surveyForm">
+            <!-- 맛 평가 -->
+            <div class="survey-item">
+                <h3>1. 음식의 맛은 어떠셨나요?</h3>
+                <select name="taste" required>
+                    <option value="">선택해주세요</option>
+                    <option value="5">매우 맛있음</option>
+                    <option value="4">맛있음</option>
+                    <option value="3">보통</option>
+                    <option value="2">맛없음</option>
+                    <option value="1">매우 맛없음</option>
+                </select>
+            </div>
+
+            <!-- 음식의 간 평가 -->
+            <div class="survey-item">
+                <h3>2. 음식의 간은 어떠셨나요?</h3>
+                <select name="seasoning" required>
+                    <option value="">선택해주세요</option>
+                    <option value="5">매우 짬</option>
+                    <option value="4">짬</option>
+                    <option value="3">적당함</option>
+                    <option value="2">싱거움</option>
+                    <option value="1">매우 싱거움</option>
+                </select>
+            </div>
+
+            <!-- 서비스 만족도 -->
+            <div class="survey-item">
+                <h3>3. 서비스 만족도는 어떠셨나요?</h3>
+                <select name="service" required>
+                    <option value="">선택해주세요</option>
+                    <option value="5">매우 만족</option>
+                    <option value="4">만족</option>
+                    <option value="3">보통</option>
+                    <option value="2">불만족</option>
+                    <option value="1">매우 불만족</option>
+                </select>
+            </div>
+
+            <!-- 청결 상태 -->
+            <div class="survey-item">
+                <h3>4. 매장의 청결 상태는 어떠셨나요?</h3>
+                <select name="cleanliness" required>
+                    <option value="">선택해주세요</option>
+                    <option value="5">매우 청결</option>
+                    <option value="4">청결</option>
+                    <option value="3">보통</option>
+                    <option value="2">불청결</option>
+                    <option value="1">매우 불청결</option>
+                </select>
+            </div>
+
+            <!-- 음식의 양 -->
+            <div class="survey-item">
+                <h3>5. 음식의 양은 어떠셨나요?</h3>
+                <select name="portion" required>
+                    <option value="">선택해주세요</option>
+                    <option value="5">매우 많음</option>
+                    <option value="4">많음</option>
+                    <option value="3">적당함</option>
+                    <option value="2">적음</option>
+                    <option value="1">매우 적음</option>
+                </select>
+            </div>
+
+            <!-- 기타 의견 -->
+            <div class="survey-item">
+                <h3>6. 기타 의견이 있으시다면 자유롭게 작성해주세요.</h3>
+                <textarea name="feedback" rows="4"></textarea>
+            </div>
+
+            <button type="submit">제출하기</button>
+        </form>
+    </div>
+    <script src="/js/survey.js"></script>
+</body>
+</html>

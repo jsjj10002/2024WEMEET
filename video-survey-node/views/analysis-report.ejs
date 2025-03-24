@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 홈 아이콘 버튼 스타일 -->
+    <style>
+        .home-button {
+            position: fixed; /* 고정 위치 */
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 홈 아이콘 스타일 */
+        .home-icon {
+            width: 24px;
+            height: 24px;
+            fill: #333;
+        }
+    </style>
+    
+    <!-- 홈 아이콘 SVG 및 버튼 -->
+    <a href="/manager-dashboard" class="home-button" title="매니저 대시보드로 이동">
+        <svg class="home-icon" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </a>
+    <meta charset="utf-8">
+    <title>식사 분석 보고서</title>
+    <link rel="stylesheet" href="/css/analysis-report.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: rgba(54, 162, 235, 1);
+            --primary-yellow: rgba(255, 205, 86, 1);
+            --primary-red: rgba(255, 99, 132, 1);
+            --bg-gradient: linear-gradient(to right bottom, #ffffff, #f8f9fa);
+            --box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            --border-radius: 20px;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .report-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .report-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 감정 점수 섹션 스타일링 */
+        .total-scores-section {
+            margin-bottom: 3rem;
+        }
+
+        .score-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .score-item {
+            padding: 2rem 3rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-width: 220px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .score-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .score-item.positive {
+            background: linear-gradient(135deg, rgba(54, 162, 235, 0.1) 0%, rgba(54, 162, 235, 0.2) 100%);
+            border: 1px solid rgba(54, 162, 235, 0.2);
+        }
+
+        .score-item.neutral {
+            background: linear-gradient(135deg, rgba(255, 205, 86, 0.1) 0%, rgba(255, 205, 86, 0.2) 100%);
+            border: 1px solid rgba(255, 205, 86, 0.2);
+        }
+
+        .score-item.negative {
+            background: linear-gradient(135deg, rgba(255, 99, 132, 0.1) 0%, rgba(255, 99, 132, 0.2) 100%);
+            border: 1px solid rgba(255, 99, 132, 0.2);
+        }
+
+        .score-item h4 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .score-item span {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 행동 분석 섹션 스타일링 */
+        .behavior-section {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .behavior-chart {
+            flex: 0 0 400px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--border-radius);
+        }
+
+        .behavior-text {
+            flex: 1;
+            padding: 1.5rem;
+        }
+
+        .behavior-text h3 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .behavior-text p {
+            color: #34495e;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        /* 타임라인 섹션 스타일링 */
+        .timeline-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* AI 리포트 섹션 스타일링 */
+        .analysis-text-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .analysis-text-section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .text-container {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: rgba(248, 249, 250, 0.5);
+            border-radius: calc(var(--border-radius) - 5px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .text-container h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .text-container p {
+            color: #34495e;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 1024px) {
+            .score-grid {
+                flex-wrap: wrap;
+            }
+            
+            .behavior-section {
+                flex-direction: column;
+            }
+            
+            .behavior-chart {
+                flex: 0 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .report-container {
+                padding: 1rem;
+            }
+            
+            .score-item {
+                min-width: 180px;
+                padding: 1.5rem;
+            }
+            
+            .score-item span {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 인쇄용 스타일 추가 */
+        @media print {
+            /* 페이지 여백 설정 */
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            /* 인쇄 시 body 스타일 */
+            body {
+                width: 100%;
+                min-height: initial;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* 컨테이너 크기 고정 */
+            .report-container {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 20px;
+            }
+
+            /* 차트 컨테이너 크기 고정 */
+            .chart-box {
+                width: 100%;
+                height: 300px !important; /* 차트 높이 고정 */
+                page-break-inside: avoid; /* 차트가 페이지 나눔 없이 출력되도록 */
+            }
+
+            /* 점수 그리드 레이아웃 유지 */
+            .score-grid {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+                page-break-inside: avoid;
+            }
+
+            /* 각 섹션이 새 페이지에서 시작하도록 설정 */
+            .analysis-section {
+                page-break-before: auto;
+                page-break-after: auto;
+                page-break-inside: avoid;
+            }
+
+            /* 불필요한 요소 숨기기 */
+            .action-buttons,
+            .home-button {
+                display: none;
+            }
+
+            /* 배경색과 그라데이션 유지 */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="report-header">
+            <h2>영상 분석 결과</h2>
+        </div>
+
+        <!-- 전체 감정 점수 섹션 -->
+        <section class="total-scores-section">
+            <div class="score-grid">
+                <div class="score-item positive">
+                    <h4>긍정</h4>
+                    <span id="totalPositive">-</span>
+                </div>
+                <div class="score-item neutral">
+                    <h4>중립</h4>
+                    <span id="totalNeutral">-</span>
+                </div>
+                <div class="score-item negative">
+                    <h4>부정</h4>
+                    <span id="totalNegative">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 감정 분석 섹션 -->
+        <div class="analysis-section">
+            <h2 class="section-title">감정 분석</h2>
+            <div class="chart-grid">
+                <div class="chart-box">
+                    <canvas id="emotionDonutChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="emotionLineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 행동 분석 섹션 -->
+        <div class="analysis-section">
+            <h2 class="section-title">행동 분석</h2>
+            <div class="chart-grid">
+                <div class="chart-box">
+                    <canvas id="behaviorDonutChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="behaviorLineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 고객님 의견 섹션 -->
+        <div id="surveySection" class="section" style="display: none;">
+            <h2 class="section-title">고객님 의견</h2>
+            <div class="chart-box">
+                <div class="survey-chart-container">
+                    <canvas id="satisfactionChart"></canvas>
+                </div>
+            </div>
+            <div class="feedback-box">
+                <h3>피드백</h3>
+                <p id="feedbackText"></p>
+            </div>
+        </div>
+
+        <!-- AI 리포트 섹션 -->
+        <div class="analysis-section">
+            <h2 class="section-title">AI 리포트</h2>
+            <div class="report-box">
+                <h3>종합 분석</h3>
+                    <div id="totalAnalysis"></div>
+            </div>
+            <div class="report-box">
+                <h3>감정 분석</h3>
+                    <div id="emotionAnalysis"></div>
+            </div>
+            <div class="report-box">
+                <h3>행동 분석</h3>
+                    <div id="behaviorAnalysis"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/analysis-report.js"></script>
+    <!-- 인쇄/저장 버튼 스타일 -->
+    <style>
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .action-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #333;
+        }
+
+        @media print {
+            .action-buttons, .home-button {
+                display: none;
+            }
+        }
+    </style>
+
+    <!-- 인쇄/저장 버튼 -->
+    <div class="action-buttons">
+        <button class="action-button" onclick="window.print()" title="인쇄하기">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+            </svg>
+        </button>
+        <button class="action-button" onclick="savePDF()" title="PDF로 저장">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        // 차트 옵션 수정
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                duration: 0 // 인쇄 시 애니메이션 비활성화
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            }
+        };
+
+        // 인쇄 전 처리
+        window.onbeforeprint = function() {
+            // 모든 차트 리사이즈
+            Object.values(report.charts).forEach(chart => {
+                if (chart && chart.resize) {
+                    chart.resize();
+                }
+            });
+        };
+
+        // PDF 저장 함수 수정
+        function savePDF() {
+            // 인쇄 설정을 위한 시간 지연
+            setTimeout(() => {
+                window.print();
+            }, 500);
+        }
+    </script>
+</body>
+</html>

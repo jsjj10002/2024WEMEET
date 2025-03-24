@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>딥쿠루 - 설문 통계</title>
+    <link rel="stylesheet" href="/css/statistics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 상단 메뉴바 -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <span class="company-name">딥쿠루 주식회사</span>
+        </div>
+        <div class="nav-center">
+            <h1 class="restaurant-name">설문 통계 자료</h1>
+        </div>
+        <div class="nav-right">
+            <button class="back-btn" onclick="window.location.href='/manager-dashboard'">대시보드로 돌아가기</button>
+        </div>
+    </nav>
+    
+    <div class="divider"></div>
+
+    <!-- 통계 대시보드 -->
+    <main class="statistics-container">
+        <!-- 요약 통계 -->
+        <div class="summary-stats">
+            <div class="stat-card total-responses">
+                <h3>총 응답 수</h3>
+                <p id="totalResponses">로딩중...</p>
+            </div>
+            <div class="stat-card avg-satisfaction">
+                <h3>전체 평균 만족도</h3>
+                <p id="avgSatisfaction">로딩중...</p>
+            </div>
+        </div>
+
+        <!-- 차트 영역 -->
+        <div class="charts-grid">
+            <!-- 맛 평가 차트 -->
+            <div class="chart-container">
+                <h3>맛 평가 분포</h3>
+                <canvas id="tasteChart"></canvas>
+            </div>
+            
+            <!-- 간 평가 차트 -->
+            <div class="chart-container">
+                <h3>간 평가 분포</h3>
+                <canvas id="seasoningChart"></canvas>
+            </div>
+            
+            <!-- 서비스 평가 차트 -->
+            <div class="chart-container">
+                <h3>서비스 만족도</h3>
+                <canvas id="serviceChart"></canvas>
+            </div>
+            
+            <!-- 청결도 차트 -->
+            <div class="chart-container">
+                <h3>청결도 평가</h3>
+                <canvas id="cleanlinessChart"></canvas>
+            </div>
+            
+            <!-- 양 평가 차트 -->
+            <div class="chart-container">
+                <h3>양 만족도</h3>
+                <canvas id="portionChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 피드백 목록 -->
+        <div class="feedback-section">
+            <h3>고객 피드백</h3>
+            <div class="feedback-list" id="feedbackList">
+                <!-- 피드백이 여기에 동적으로 추가됨 -->
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/statistics.js"></script>
+</body>
+</html>

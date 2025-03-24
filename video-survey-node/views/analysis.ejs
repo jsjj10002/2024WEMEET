@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>딥쿠루 - 영상 분석</title>
+    <link rel="stylesheet" href="/css/analysis.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>선택된 영상 분석</h1>
+        
+        <!-- 썸네일 그리드 -->
+        <div class="thumbnail-grid" id="thumbnailGrid">
+            <!-- 썸네일들이 여기에 동적으로 추가됨 -->
+        </div>
+
+        <div class="analysis-container">
+            <h2>분석 진행 중...</h2>
+            
+            <div class="analysis-status-container">
+                <div class="loading-spinner"></div>
+                <div id="status-message" class="status-message">분석을 시작합니다...</div>
+            </div>
+
+            <button id="viewResultButton" class="result-button" onclick="location.href='/analysis/report'">
+                분석 결과 보기
+            </button>
+        </div>
+
+        <div id="thumbnailContainer" class="thumbnail-container"></div>
+    </div>
+    <script src="/js/analysis.js"></script>
+
+    <style>
+    .analysis-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .progress-container {
+        margin: 2rem 0;
+    }
+
+    progress {
+        width: 100%;
+        height: 20px;
+    }
+
+    #progressText {
+        display: block;
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    #viewResultButton {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        margin-top: 2rem;
+    }
+    </style>
+</body>
+</html>

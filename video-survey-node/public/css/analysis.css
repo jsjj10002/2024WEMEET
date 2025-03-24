@@ -1,0 +1,314 @@
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.thumbnail-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.thumbnail-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.analysis-status {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+.progress-container {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: #f0f0f0;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 3rem 0;
+    transform: translateY(20px);
+}
+
+/* 프로그레스 바 */
+progress {
+    width: 100%;
+    height: 150%; /* 높이를 150%로 증가시켜 아래쪽까지 완전히 덮도록 함 */
+    margin-top: -25%; /* 위쪽으로 올려서 중앙 정렬 */
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+}
+
+progress::-webkit-progress-bar {
+    background-color: transparent;
+}
+
+/* 프로그레스 바 색상을 더 밝은 초록색으로 변경하고 크기 확장 */
+progress::-webkit-progress-value {
+    background: #4CAF50; /* Material Design Green 500 */
+    transition: width 0.3s ease;
+    transform: scaleY(1.5); /* Y축으로 1.5배 확장 */
+}
+
+progress::-moz-progress-bar {
+    background: #4CAF50; /* Material Design Green 500 */
+    transition: width 0.3s ease;
+    transform: scaleY(1.5); /* Y축으로 1.5배 확장 */
+}
+
+/* 진행률 텍스트 */
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.view-result-btn {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.view-result-btn:hover {
+    transform: scale(1.05);
+}
+
+.result-content {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.result-image {
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+
+.thumbnail-placeholder {
+    width: 100%;
+    height: 150px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.thumbnail-placeholder span {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+/* 버튼 컨테이너 스타일 */
+.result-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* 결과 보기 버튼 스타일 */
+.result-view-btn {
+    background-color: #dc3545;  /* 빨간색 계열 */
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+/* 호버 효과 */
+.result-view-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* 클릭 효과 */
+.result-view-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+/* 버튼 비활성화 상태 */
+.result-view-btn:disabled {
+    background-color: #dc354580;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.video-thumbnail {
+    width: 200px;
+    margin: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.video-thumbnail p {
+    padding: 8px;
+    margin: 0;
+    text-align: center;
+    background: #fff;
+    font-size: 0.9em;
+    color: #333;
+}
+
+#thumbnailContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+}
+
+/* 분석 상태 컨테이너 */
+.analysis-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 결과 보기 버튼 */
+.result-button {
+    display: none; /* 초기에는 숨김 */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 35px;
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); /* 더 밝은 초록색으로 변경 */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(76, 175, 80, 0.2); /* 그림자 색상도 변경 */
+    overflow: hidden;
+}
+
+.result-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.result-button:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3); /* 호버 시 그림자 색상도 변경 */
+}
+
+.result-button:hover::before {
+    transform: translateX(100%);
+}
+
+.result-button:active {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.2); /* 클릭 시 그림자 색상도 변경 */
+}
+
+/* 결과 보기 버튼 초기 상태 */
+#viewResultButton {
+    display: none;
+}
+
+/* 기존 progress 관련 스타일 제거하고 새로운 스타일 추가 */
+.analysis-status-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.loading-spinner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.status-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 에러 메시지 스타일 */
+.status-message.error {
+    color: #f44336;
+}
+
+/* 완료 메시지 스타일 */
+.status-message.complete {
+    color: #4CAF50;
+}

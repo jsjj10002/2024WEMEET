@@ -1,0 +1,194 @@
+/* 전체 컨테이너 스타일링 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+#videoPreview {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* 비디오 컨테이너 스타일링 */
+.video-container {
+    margin: 2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* 비디오 요소 스타일링 */
+video {
+    width: 100%;
+    border: none;
+    background: #f8f9fa;
+}
+
+/* 컨트롤 버튼 영역 */
+.controls {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+/* 기본 버튼 스타일 */
+button {
+    padding: 12px 24px;
+    margin: 0 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+/* 설문 항목 스타일링 */
+.survey-item {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+/* 설문 입력 요소 스타일링 */
+.survey-item select,
+.survey-item textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 0.8rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.survey-item select:focus,
+.survey-item textarea:focus {
+    border-color: #4dabf7;
+    outline: none;
+}
+
+/* 텍스트영역 스타일링 */
+.survey-item textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* 폼 버튼 스타일링 */
+form button {
+    background-color: #339af0;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(51, 154, 240, 0.2);
+}
+
+form button:hover {
+    background-color: #228be6;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(51, 154, 240, 0.3);
+}
+
+/* 분석 결과 보기 버튼 스타일 */
+.result-button {
+    display: none;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 30px 0;
+    padding: 15px 35px;
+    background-color: #00C896;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 200, 150, 0.2);
+}
+
+.result-button:hover {
+    background-color: #00B386;
+    box-shadow: 0 6px 8px rgba(0, 200, 150, 0.3);
+    transform: translateX(-50%) translateY(-2px);
+}
+
+.result-button:active {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 200, 150, 0.2);
+}
+
+/* 분석 진행 상태 컨테이너 */
+.analysis-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    text-align: center;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* 프로그레스 바 스타일 */
+.progress-container {
+    margin: 25px auto;
+    max-width: 400px;
+}
+
+progress {
+    width: 100%;
+    height: 12px;
+    border-radius: 999px;
+    background-color: #f3f4f6;
+    border: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #f3f4f6;
+    border-radius: 999px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #00C896;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+/* 진행률 텍스트 */
+.progress-text {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #666666;
+}
+
+/* 전체 페이지 스타일 */
+body {
+    background-color: #f8f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
